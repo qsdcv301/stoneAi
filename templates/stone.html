@@ -21,7 +21,7 @@
 
         .color-backGround {
             background-color: #F9F7F7;
-            height: 800px;
+            min-height: 800px;
         }
 
         .color-header {
@@ -50,25 +50,26 @@
             <h4 class="text-center">김진수</h4>
         </div>
     </header>
-    <div class="container color-backGround">
+    <div class="container color-backGround my-5 py-5">
         <div class="row">
-            <div class="col-12 mt-5">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">어빌리티스톤 세공</h5>
+                        <div class="mb-3">확률: <span id="probability">75</span>%</div>
                         <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th colspan="1">추천</th>
                                     <th colspan="1">각인</th>
-                                    <th colspan="10">세공<span> 75</span>%</th>
+                                    <th colspan="10">세공</th>
+                                    <th colspan="2">성공 / 실패</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr data-row-id="1">
                                     <td></td>
                                     <td>각인1</td>
-                                    <td><i class="bi bi-diamond-fill"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
@@ -78,8 +79,13 @@
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td class="d-flex justify-content-around">
+                                        <button class="btn btn-primary success-btn">성공</button>
+                                        <button class="btn btn-danger fail-btn">실패</button>
+                                    </td>
                                 </tr>
-                                <tr>
+                                <tr data-row-id="2">
                                     <td></td>
                                     <td>각인2</td>
                                     <td><i class="bi bi-diamond"></i></td>
@@ -92,8 +98,12 @@
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
+                                    <td class="d-flex justify-content-around">
+                                        <button class="btn btn-primary success-btn">성공</button>
+                                        <button class="btn btn-danger fail-btn">실패</button>
+                                    </td>
                                 </tr>
-                                <tr>
+                                <tr data-row-id="3">
                                     <td></td>
                                     <td>감소각인</td>
                                     <td><i class="bi bi-diamond"></i></td>
@@ -106,9 +116,17 @@
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
                                     <td><i class="bi bi-diamond"></i></td>
+                                    <td class="d-flex justify-content-around">
+                                        <button class="btn btn-primary success-btn">성공</button>
+                                        <button class="btn btn-danger fail-btn">실패</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-warning mt-3 mx-2" id="undo-btn">취소</button>
+                            <button class="btn btn-secondary mt-3 mx-2" id="reset-btn">초기화</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,6 +139,78 @@
             <p>This site is not associated with Smilegate RPG & Smilegate Stove.</p>
         </div>
     </footer>
+
+    <script>
+        let probability = 75;
+        const historyStack = [];
+
+        function updateProbability() {
+            $("#probability").text(probability);
+        }
+
+        function checkIfRowComplete(row) {
+            if (row.find(".bi-diamond").length === 0) {
+                row.find(".success-btn, .fail-btn").attr("disabled", true);
+            }
+        }
+
+        $(document).ready(function () {
+            $(".success-btn").click(function () {
+                const element = $(this).closest("tr").find(".bi-diamond").first();
+                historyStack.push({
+                    type: 'success',
+                    element: element,
+                    previousProbability: probability,
+                    rowId: $(this).closest("tr").data("row-id")
+                });
+                if (probability > 25) {
+                    probability -= 10;
+                }
+                updateProbability();
+                element.removeClass("bi-diamond").addClass("bi-diamond-fill");
+                checkIfRowComplete($(this).closest("tr"));
+            });
+
+            $(".fail-btn").click(function () {
+                const element = $(this).closest("tr").find(".bi-diamond").first();
+                historyStack.push({
+                    type: 'fail',
+                    element: element,
+                    previousProbability: probability,
+                    rowId: $(this).closest("tr").data("row-id")
+                });
+                if (probability < 75) {
+                    probability += 10;
+                }
+                updateProbability();
+                element.removeClass("bi-diamond").addClass("bi-diamond-fill text-black-50");
+                checkIfRowComplete($(this).closest("tr"));
+            });
+
+            $("#reset-btn").click(function () {
+                probability = 75;
+                updateProbability();
+                $(".bi-diamond-fill").removeClass("bi-diamond-fill text-black-50").addClass("bi-diamond");
+                $(".success-btn, .fail-btn").attr("disabled", false);
+                historyStack.length = 0;
+            });
+
+            $("#undo-btn").click(function () {
+                if (historyStack.length > 0) {
+                    const lastAction = historyStack.pop();
+                    probability = lastAction.previousProbability;
+                    updateProbability();
+                    if (lastAction.type === 'success') {
+                        lastAction.element.removeClass("bi-diamond-fill").addClass("bi-diamond");
+                    } else if (lastAction.type === 'fail') {
+                        lastAction.element.removeClass("bi-diamond-fill text-black-50").addClass("bi-diamond");
+                    }
+                    const row = $(`tr[data-row-id="${lastAction.rowId}"]`);
+                    row.find(".success-btn, .fail-btn").attr("disabled", false);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
