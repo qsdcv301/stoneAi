@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jinsu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static', filename='js/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../static/css/style.css" rel="stylesheet" />
+    <script src="../static/js/jquery-1.12.4.min.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/script.js"></script>
     <style>
         a:hover {
             background-color: inherit;
@@ -21,6 +21,7 @@
 
         .color-backGround {
             background-color: #F9F7F7;
+            height: 800px;
         }
 
         .color-header {
@@ -44,19 +45,70 @@
 
 <body>
     <header class="container-fluid">
-        <div class="row color-header text-white justify-content-center align-content-center flex-column
-    ">
+        <div class="row color-header text-white justify-content-center align-content-center flex-column">
             <h2>돌세돌</h2>
             <h4 class="text-center">김진수</h4>
         </div>
     </header>
     <div class="container color-backGround">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Title</h5>
-                        <p class="card-text">Content</p>
+                        <h5 class="card-title">어빌리티스톤 세공</h5>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="1">추천</th>
+                                    <th colspan="1">각인</th>
+                                    <th colspan="10">세공<span> 75</span>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>각인1</td>
+                                    <td><i class="bi bi-diamond-fill"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>각인2</td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>감소각인</td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                    <td><i class="bi bi-diamond"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
