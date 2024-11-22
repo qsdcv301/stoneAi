@@ -14,7 +14,7 @@
 
 웹 애플리케이션을 개발하는 데 사용된 기술을 설명합니다.
 
-- **프론트엔드**: HTML, CSS, JavaScript
+- **프론트엔드**: HTML, CSS, JavaScript, Bootstrap
 - **백엔드**: Phython(Flask)
 - **기타 도구**: Git, Oracle Server
 
@@ -50,8 +50,6 @@
 ## 7. 배포 주소
 
 - **URL**: http://138.2.126.222:8083/
-
----
 
 ## 부록
 
